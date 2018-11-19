@@ -326,7 +326,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
 
                 Date hoje = new Date();
 
-                c.add(Calendar.DAY_OF_MONTH, 2);
+                c.add(Calendar.DAY_OF_MONTH, 120);
 
                 hoje = c.getTime();
 
@@ -334,16 +334,16 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                 Date data = formato.parse(ati);
                 formato.applyPattern("dd/MM/yyyy");
 
-                if (hoje.before(data)) {
-                    situacao = "Pendente";
+                if (hoje.after(data)) {
+                    situacao = "Vencendo";
 
                 } else {
-                    situacao = "Vencido";
+                    situacao = "Pendente";
 
                 }
 
                 //--------------------------------------------------------------------------------------------------------------------------------------
-                if (situacao.equals("vencido")) {
+                if (situacao.equals("Vencido")) {
 
                     String sql2 = "update tbprocesso set situacao=? where idpro=?";
 
