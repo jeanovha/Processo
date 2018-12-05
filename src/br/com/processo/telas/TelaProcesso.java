@@ -44,6 +44,9 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         pesquisar_cliente();
         pesquisarProcesso();
         
+        
+    
+        
        
        
 
@@ -343,7 +346,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                 }
 
                 //--------------------------------------------------------------------------------------------------------------------------------------
-                if (situacao.equals("Vencido")) {
+                if (situacao.equals("Vencendo")) {
 
                     String sql2 = "update tbprocesso set situacao=? where idpro=?";
 
@@ -408,7 +411,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
     
     public void mudarCor(){
  
-        CLASS = "Vencido";
+        CLASS = "Vencendo";
         tblPro.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFous, int row, int column) {
@@ -417,7 +420,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                 //-----------------------------------------------------------------------------------------------------
                 //Color c = Color.WHITE;
                 //label.setForeground(java.awt.Color.BLACK);
-                tblPro.setSelectionBackground(java.awt.Color.GREEN);
+                tblPro.setSelectionBackground(java.awt.Color.getHSBColor(27,187,125));
                 Object texto = table.getValueAt(row, 9);
                 
                 if(CLASS.equals(texto)){
@@ -482,7 +485,6 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         btnProAlterar = new javax.swing.JButton();
         btnProPes = new javax.swing.JButton();
         btnProExcluir = new javax.swing.JButton();
-        btnProImpri = new javax.swing.JButton();
         txtNomeCli = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -499,15 +501,14 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         tblPro = new javax.swing.JTable();
         btnFecha = new javax.swing.JButton();
 
-        setClosable(true);
+        setBackground(java.awt.SystemColor.controlShadow);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Processo");
         setVisible(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setText("* Nº Processo");
 
@@ -563,6 +564,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         }
 
         btnProInserir.setText("Inserir");
+        btnProInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProInserirActionPerformed(evt);
@@ -570,6 +572,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         });
 
         btnProAlterar.setText("Alterar");
+        btnProAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProAlterarActionPerformed(evt);
@@ -577,6 +580,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         });
 
         btnProPes.setText("Novo");
+        btnProPes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProPes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProPesActionPerformed(evt);
@@ -584,13 +588,12 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         });
 
         btnProExcluir.setText("Excluir");
+        btnProExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProExcluirActionPerformed(evt);
             }
         });
-
-        btnProImpri.setText("Imprimir");
 
         txtNomeCli.setEnabled(false);
 
@@ -607,7 +610,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProTipoPro, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                            .addComponent(txtProTipoPro, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                             .addComponent(txtProAtividade)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -645,7 +648,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtProDataPro, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(btnProInserir)
@@ -655,9 +658,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                 .addComponent(btnProPes)
                 .addGap(64, 64, 64)
                 .addComponent(btnProExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnProImpri)
-                .addGap(35, 35, 35))
+                .addGap(35, 224, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -697,11 +698,11 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                     .addComponent(btnProInserir)
                     .addComponent(btnProAlterar)
                     .addComponent(btnProPes)
-                    .addComponent(btnProExcluir)
-                    .addComponent(btnProImpri))
+                    .addComponent(btnProExcluir))
                 .addGap(26, 26, 26))
         );
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecione o Cliente"));
 
         txtCliPesqisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -767,6 +768,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar Processo"));
 
         txtProPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -782,6 +784,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/processo/icones/images.jpg"))); // NOI18N
 
+        tblPro.setAutoCreateRowSorter(true);
         tblPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -810,12 +813,12 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtProPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -830,6 +833,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
 
         btnFecha.setBackground(new java.awt.Color(255, 102, 102));
         btnFecha.setText("Fechar");
+        btnFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFechaActionPerformed(evt);
@@ -841,9 +845,7 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -852,30 +854,34 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(91, 91, 91)
-                                .addComponent(btnFecha)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnFecha))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnFecha)
-                        .addGap(36, 36, 36)))
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName(" Cliente");
 
-        setBounds(0, 0, 1021, 608);
+        setBounds(0, 0, 1291, 608);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCliPesqisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesqisarKeyReleased
@@ -947,7 +953,6 @@ public class TelaProcesso extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFecha;
     private javax.swing.JButton btnProAlterar;
     private javax.swing.JButton btnProExcluir;
-    private javax.swing.JButton btnProImpri;
     private javax.swing.JButton btnProInserir;
     private javax.swing.JButton btnProPes;
     private javax.swing.JLabel jLabel1;

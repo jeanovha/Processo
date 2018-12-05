@@ -4,76 +4,84 @@
  * and open the template in the editor.
  */
 package br.com.processo.telas;
+
 import java.sql.*;
 import br.com.processo.DAO.ModuloConexao;
 import java.awt.Color;
+import java.awt.Point;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Admin
  */
 public class TelaLogin extends javax.swing.JFrame {
-Connection conexao = null;
-PreparedStatement pst = null;
-ResultSet rs = null;
 
-public void logar(){
-    String sql = "select * from tbusuarios where login=? and senha=?";
-    try {
-        pst = conexao.prepareStatement(sql);
-        pst.setString(1, txtUsuario.getText());
-        pst.setString(2, txtSenha.getText());
-        
-        rs = pst.executeQuery();
-        
-        if (rs.next()){
-            
-            String perfil = rs.getString(5);
-            //System.out.println(perfil);
-            
-            if (perfil.equals("admin")){
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    private Point point = new Point();
+    
+    String let = "";
+
+    public void logar() {
+        String sql = "select * from tbusuarios where login=? and senha=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuario.getText());
+            pst.setString(2, txtSenha.getText());
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+
+                String perfil = rs.getString(5);
+                //System.out.println(perfil);
+
+                if (perfil.equals("admin")) {
+
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+
+                    TelaPrincipal.menCadUsu.setEnabled(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(1));
+                    TelaPrincipal.lblUsuario.setForeground(Color.red);
+                    this.dispose();
+
+                } else {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(1));
+                    TelaPrincipal.lblUsuario.setForeground(Color.blue);
+                    this.dispose();
+                }
+
+                conexao.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha invalido");
                 
-            
-            
-            
-            TelaPrincipal principal = new TelaPrincipal();
-            principal.setVisible(true);
-            
-            TelaPrincipal.menCadUsu.setEnabled(true);
-            TelaPrincipal.lblUsuario.setText(rs.getString(1));
-                TelaPrincipal.lblUsuario.setForeground(Color.red);
-                this.dispose();
-            
-            }else{
-             TelaPrincipal principal = new TelaPrincipal();
-            principal.setVisible(true);
-              TelaPrincipal.lblUsuario.setText(rs.getString(1));
-              TelaPrincipal.lblUsuario.setForeground(Color.blue);
-             this.dispose();
             }
-            
-            conexao.close();
-        }else{
-            JOptionPane.showMessageDialog(null, "usuário ou senha invalido");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
+
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+
         conexao = ModuloConexao.conector();
         // Linha abaixo teste a conexao
-       // System.out.println(conexao);
-       if (conexao != null){
-           lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/processo/icones/icons8-aceitar-banco-de-dados-16.png")));
-       }else{
+        // System.out.println(conexao);
+        if (conexao != null) {
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/processo/icones/icons8-aceitar-banco-de-dados-16.png")));
+        } else {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/processo/icones/icons8-excluir-banco-de-dados-64.png")));
-       }
+        }
     }
 
     /**
@@ -87,8 +95,8 @@ public void logar(){
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txtSenha = new javax.swing.JPasswordField();
-        txtUsuario = new javax.swing.JTextField();
+        txtSenha = new JPassWordFieldHint(new JPasswordField(),"padlock","Senha");
+        txtUsuario = new br.com.processo.telas.JTextFieldHint(new JTextField(), "user-icon", "Nome do Usuario");
         btnLogin = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
@@ -121,24 +129,47 @@ public void logar(){
             }
         });
 
+        btnLogin.setBackground(new java.awt.Color(58, 65, 84));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Entrar");
         btnLogin.setBorderPainted(false);
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setFocusPainted(false);
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLoginMouseExited(evt);
+            }
+        });
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        lblStatus.setText("Status");
-
+        btnSair.setBackground(new java.awt.Color(217, 81, 51));
         btnSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSair.setForeground(new java.awt.Color(255, 255, 255));
         btnSair.setText("Sair");
         btnSair.setBorderPainted(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSair.setFocusPainted(false);
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSairMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSairMouseExited(evt);
+            }
+        });
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -147,15 +178,15 @@ public void logar(){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblStatus))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(lblStatus)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,7 +197,7 @@ public void logar(){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,12 +257,36 @@ public void logar(){
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // chamando o metado logar
-        
+         
         logar();
         
-        
+
+
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
+        btnLogin.setBackground(new Color(235, 235, 235));
+        btnLogin.setForeground(new Color(58, 65, 84));
+    }//GEN-LAST:event_btnLoginMouseEntered
+
+    private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
+        btnSair.setBackground(new Color(235, 235, 235));
+        btnSair.setForeground(new Color(217, 81, 51));
+    }//GEN-LAST:event_btnSairMouseEntered
+
+    private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
+        btnLogin.setBackground(new Color(58, 65, 84));
+        btnLogin.setForeground(Color.white);
+    }//GEN-LAST:event_btnLoginMouseExited
+
+    private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
+        btnSair.setBackground(new Color(217, 81, 51));
+        btnSair.setForeground(Color.white);
+    }//GEN-LAST:event_btnSairMouseExited
 
     /**
      * @param args the command line arguments
@@ -244,7 +299,7 @@ public void logar(){
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
