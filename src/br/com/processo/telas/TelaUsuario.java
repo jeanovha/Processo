@@ -1,5 +1,3 @@
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +6,8 @@
 package br.com.processo.telas;
 
 import br.com.processo.DAO.ModuloConexao;
+import br.com.processo.Model.Criptografia;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +64,14 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         }
     }
 
+    public String md5(String senha) {
+        String senha1 = senha;
+        String MD5 = Criptografia.criptografar(senha1);
+
+        return MD5;
+
+    }
+
     private void adicionar() {
         String sql = "insert into tbusuarios (usuario, fone, login, senha, perfil) values (?,?,?,?,?)";
 
@@ -74,7 +82,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(1, txtUsuNome.getText());
             pst.setString(2, txtUsuTel.getText());
             pst.setString(3, txtUsuLogin.getText());
-            pst.setString(4, txtUsoSenha.getText());
+            pst.setString(4, md5(txtUsoSenha.getText()));
             pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
 
             //As linhas abaixo valida os campos obrigatorios 
@@ -100,7 +108,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Login já existe.");
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
         }
 
     }
@@ -167,9 +176,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     txtUsuId.setText(null);
                 }
             } catch (Exception e) {
-                
+
                 JOptionPane.showMessageDialog(null, e);
-                
+
             }
 
         }

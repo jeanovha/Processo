@@ -21,7 +21,6 @@ import java.security.NoSuchAlgorithmException;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException ex) {
-            ex.printStackTrace();
         }
     }
   

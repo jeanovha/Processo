@@ -7,6 +7,8 @@ package br.com.processo.telas;
 
 import java.sql.*;
 import br.com.processo.DAO.ModuloConexao;
+import br.com.processo.Model.Criptografia;
+
 import java.awt.Color;
 import java.awt.Point;
 import javax.swing.JOptionPane;
@@ -23,15 +25,27 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     private Point point = new Point();
-    
+
     String let = "";
 
+    public String md5(String senha) {
+        String senha1 = senha;
+        String MD5 = Criptografia.criptografar(senha1);
+
+        return MD5;
+
+    }
+
     public void logar() {
+        //String md5 = md5(utf8_encode(txtSenha.getText()));
+
         String sql = "select * from tbusuarios where login=? and senha=?";
+//"SELECT *, MD5(senha=?) FROM tbusuarios WHERE login=? MD5(senha=?) LIKE ?";
+//"select * from tbusuarios where login=? and senha=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuario.getText());
-            pst.setString(2, txtSenha.getText());
+            pst.setString(2, md5(txtSenha.getText()));
 
             rs = pst.executeQuery();
 
@@ -61,7 +75,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 conexao.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha invalido");
-                
+
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -257,9 +271,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-         
+
         logar();
-        
 
 
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -334,4 +347,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private String utf8_encode(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
