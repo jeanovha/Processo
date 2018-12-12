@@ -47,9 +47,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         Desktop = new javax.swing.JDesktopPane();
-        lblUsuario = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
         menCad = new javax.swing.JMenu();
         menCadCli = new javax.swing.JMenuItem();
@@ -62,6 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -76,14 +77,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+            .addGap(0, 446, Short.MAX_VALUE)
         );
 
-        lblUsuario.setText("Usuario");
+        jLabel1.setText("Usuario:");
 
         lblData.setText("Data");
 
-        jLabel1.setText("Usuario:");
+        lblUsuario.setText("Usuario");
 
         menCad.setText("Cadastro");
 
@@ -157,33 +158,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Desktop)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 792, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblUsuario)
-                        .addGap(56, 56, 56)
-                        .addComponent(lblData)
-                        .addGap(60, 60, 60))))
+                .addContainerGap(966, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuario)
+                .addGap(85, 85, 85)
+                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addComponent(Desktop, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblData)
                     .addComponent(lblUsuario)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Desktop)
-                .addContainerGap())
+                .addComponent(Desktop))
         );
 
-        setSize(new java.awt.Dimension(1039, 689));
+        setSize(new java.awt.Dimension(1220, 526));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -249,7 +244,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menRelActionPerformed
 
     private void menRelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menRelMouseClicked
-       TelaRelatorio telaRelatorio = new TelaRelatorio();
+       TelaRelatorioRMA telaRelatorio = new TelaRelatorioRMA();
         telaRelatorio.setVisible(true);
         Desktop.add(telaRelatorio);
         
